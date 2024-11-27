@@ -25,12 +25,12 @@ public class Vendor extends Person{
         if (getEvent().getTable().getVendorWaitingCount() + 1 >= 100)
             getEvent().getTable().setVendorWaitingRoomFull(true);
 
-        getEvent().getTable().setVendorWaitingCount(getEvent().getTable().getVendorWaitingCount() + 1);
 
+        changeWaitingCount(1);
 
         try{
             accessVendorWaitingRoom().await();
-            getEvent().getTable().setVendorWaitingCount(getEvent().getTable().getVendorWaitingCount() - 1);
+            changeWaitingCount(-1);  //don't worry too much because we are using a ree...lock fair....
         }catch (InterruptedException e){
             Thread.currentThread().interrupt();
             System.out.println("Problem in vendor waiting room !!!");
@@ -54,6 +54,11 @@ public class Vendor extends Person{
     @Override
     public void waitingMessage() {
         System.out.println("Vendor" + getName() + "Entered the waiting room");
+    }
+
+    @Override
+    public void changeWaitingCount(int count) {
+        getEvent().getTable().setVendorWaitingCount(getEvent().getTable().getVendorWaitingCount() + count);
     }
 
     public List<Vendor> customerList(){

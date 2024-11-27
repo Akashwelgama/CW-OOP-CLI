@@ -46,6 +46,7 @@ public abstract class Person implements Runnable{
 
     public abstract void waitingMessage(); //Message printing when the thread is going to sleep
 
+    public abstract void changeWaitingCount(int count);
     public Condition accessCustomerWaitingRoom(){
         return customerWaitingRoom;
     }

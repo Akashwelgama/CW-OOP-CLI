@@ -6,11 +6,17 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TicketPool {
 
-    private ArrayList<Ticket> ticketPool = new ArrayList<>();
+    //Remember to add the initial about of tickets of to the ticket array
+    //within the event class when the program initialises.
+    private ArrayList<Integer> ticketPool = new ArrayList<>();
     private int maxTickets;
 
     public int getCurrentTicketCount() {
         return currentTicketCount;
+    }
+
+    public void setCurrentTicketCount(int currentTicketCount) {
+        this.currentTicketCount = currentTicketCount;
     }
 
     private int currentTicketCount;
@@ -28,11 +34,11 @@ public class TicketPool {
     private int customerWaitingCount = 0;
     private int vendorWaitingCount = 0;
 
-    public ArrayList<Ticket> getTicketPool() {
+    public ArrayList<Integer> getTicketPool() {
         return ticketPool;
     }
 
-    public void setTicketPool(ArrayList<Ticket> ticketPool) {
+    public void setTicketPool(ArrayList<Integer> ticketPool) {
         this.ticketPool = ticketPool;
     }
 
@@ -82,11 +88,22 @@ public class TicketPool {
 
 
     public void sellTickets(int ticketReleaseCount){
+
         currentTicketCount += ticketReleaseCount;
+        for (int i = 0; i < ticketReleaseCount; i++){
+            ticketPool.add(1);
+        }
     }
 
     public void buyTickets(int ticketBuyingCount){
+
         currentTicketCount -= ticketBuyingCount;
+
+        int index = ticketPool.size() - 1;
+        for(int i = 0; i < ticketBuyingCount; i++){
+            ticketPool.remove(index);
+            index--;
+        }
     }
 
 
@@ -95,8 +112,12 @@ public class TicketPool {
 //
 //    }
 
+
+
     public void useTable(Person person) {
+        person.changeWaitingCount(1);
         lock.lock();
+        person.changeWaitingCount(-1);
         try {
             while (!person.proceed()) {
                 person.waitingMessage();
@@ -114,7 +135,12 @@ public class TicketPool {
 
     }
 
-    //we will see if this will work
+
+
+
+
+
+    //we are making this change to make sure that this is working...
     public TicketPool(int maxTickets, int currentTicketCount) {
         this.maxTickets = maxTickets;
         this.currentTicketCount = currentTicketCount;
