@@ -21,14 +21,16 @@ public class Customer extends Person {
 
     @Override
     public void waitNow(){
-        if (getEvent().getTable().getCustomerWaitingCount() + 1 >= 100)
-            getEvent().getTable().setCustomerWaitingRoomFull(true);
+
 
         changeWaitingCount(1);
 
         try {
             accessCustomerWaitingRoom().await();
             changeWaitingCount(-1); //don't worry too much because we are using a ree...lock fair....
+
+
+
         } catch (InterruptedException e){
             Thread.currentThread().interrupt();
             System.out.println("Waiting room error");
@@ -48,7 +50,7 @@ public class Customer extends Person {
     @Override
     public boolean proceed() {
 
-        return ((getEvent().getTable().getCurrentTicketCount() - getNumberOfTickets()) >= getEvent().getTable().getMaxTickets());
+        return ((getEvent().getTable().getCurrentTicketCount() - getNumberOfTickets()) >= 0);
     }
 
     @Override
@@ -60,6 +62,9 @@ public class Customer extends Person {
     @Override
     public void changeWaitingCount(int count) {
         getEvent().getTable().setCustomerWaitingCount(getEvent().getTable().getCustomerWaitingCount() + count);
+
+        //if (getEvent().getTable().getCustomerWaitingCount() < 100)
+        getEvent().getTable().setCustomerWaitingRoomFull(getEvent().getTable().getCustomerWaitingCount() + 1 >= 100);
     }
 
     public List<Customer> customerList(){

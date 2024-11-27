@@ -22,8 +22,7 @@ public class Vendor extends Person{
     @Override
     public void waitNow() {
 
-        if (getEvent().getTable().getVendorWaitingCount() + 1 >= 100)
-            getEvent().getTable().setVendorWaitingRoomFull(true);
+
 
 
         changeWaitingCount(1);
@@ -31,6 +30,9 @@ public class Vendor extends Person{
         try{
             accessVendorWaitingRoom().await();
             changeWaitingCount(-1);  //don't worry too much because we are using a ree...lock fair....
+
+
+
         }catch (InterruptedException e){
             Thread.currentThread().interrupt();
             System.out.println("Problem in vendor waiting room !!!");
@@ -48,7 +50,7 @@ public class Vendor extends Person{
     @Override
     public boolean proceed() {
 
-        return ((getEvent().getTable().getCurrentTicketCount() + getNumberOfTickets()) <= 0);
+        return ((getEvent().getTable().getCurrentTicketCount() + getNumberOfTickets()) <= getEvent().getTable().getMaxTickets());
     }
 
     @Override
@@ -59,11 +61,13 @@ public class Vendor extends Person{
     @Override
     public void changeWaitingCount(int count) {
         getEvent().getTable().setVendorWaitingCount(getEvent().getTable().getVendorWaitingCount() + count);
+        // if (getEvent().getTable().getVendorWaitingCount() + 1 < 100)
+        getEvent().getTable().setVendorWaitingRoomFull(getEvent().getTable().getVendorWaitingCount() + 1 >= 100);
     }
 
-    public List<Vendor> customerList(){
+    public List<Vendor> VendorList(){
 
-        return Person.createPeople(Vendor.class, getEvent().getEventDynamics().getTicketRetrievalRate(), getEvent());
+        return Person.createPeople(Vendor.class, getEvent().getEventDynamics().getTicketReleaseRate(), getEvent());
     }
 
 

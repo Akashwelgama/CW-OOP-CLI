@@ -53,11 +53,14 @@ class VendorEngine implements Runnable{
 
 
     public void vendorManager(){
-        List<Vendor> vendorSet =
-                Person.createPeople(Vendor.class, event.getEventDynamics().getTicketRetrievalRate(), event);
+
         while(!event.isTerminate()){
+
+            List<Vendor> vendorSet =
+                    Person.createPeople(Vendor.class, event.getEventDynamics().getTicketReleaseRate(), event);
+
             for(Vendor vendor: vendorSet){
-                if (!(event.getTable().isVendorWaitingRoomFull())) continue;
+                if (event.getTable().isVendorWaitingRoomFull()) continue;
                 Thread customerThread = new Thread(vendor);
                 customerThread.start();
             }
@@ -92,12 +95,15 @@ class CustomerEngine implements Runnable{
 
 
     public void customerManager(){
-        List<Customer> customerSet =
-                Person.createPeople(Customer.class, event.getEventDynamics().getTicketRetrievalRate(), event);
+
 
         while(!event.isTerminate()){
+
+            List<Customer> customerSet =
+                    Person.createPeople(Customer.class, event.getEventDynamics().getTicketRetrievalRate(), event);
+
             for(Customer customer: customerSet){
-                if (!(event.getTable().isCustomerWaitingRoomFull())) continue;
+                if (event.getTable().isCustomerWaitingRoomFull()) continue;
                 Thread customerThread = new Thread(customer);
                 customerThread.start();
             }

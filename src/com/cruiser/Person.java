@@ -17,8 +17,8 @@ public abstract class Person implements Runnable{
 
     private Event event;
 
-    private Condition vendorWaitingRoom = event.getTable().getVendorWaitingRoom();
-    private Condition customerWaitingRoom = event.getTable().getCustomerWaitingRoom();
+    private Condition vendorWaitingRoom;
+    private Condition customerWaitingRoom;
 
 
     private final String name;
@@ -106,6 +106,8 @@ public abstract class Person implements Runnable{
         this.name = name;
         this.numberOfTickets = numberOfTickets;
         this.event = event;
+        this.vendorWaitingRoom = event.getTable().getVendorWaitingRoom();
+        this.customerWaitingRoom = event.getTable().getCustomerWaitingRoom();
     }
 
     @Override

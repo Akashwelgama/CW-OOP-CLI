@@ -8,6 +8,9 @@ public class Main {
 
     private static Configuration currentConfiguration;
 
+
+    private static Event event;
+
     //Remember to initiate the lock here
 
     public static void main(String[] args) {
@@ -41,10 +44,13 @@ public class Main {
                 takeUserInput();
             }
 
+        event = new Event(currentConfiguration);
+        event.getTable().sellTickets(currentConfiguration.getInitialTicketCount());
+        Thread vendors = new Thread(new VendorEngine(event));
+        Thread customers = new Thread(new CustomerEngine(event));
 
-
-
-
+        vendors.start();
+        customers.start();
 
     }
 
@@ -55,7 +61,7 @@ public class Main {
                 "Enter the Initial amount of tickets in the ticket pool: ",
                 "Enter the ticket release rate: ",
                 "Enter the ticket retrieval rate: ",
-                "Enter the max capacity of the ticket pool: w"
+                "Enter the max capacity of the ticket pool: "
         };
 
         int[] userInputs = new int[4];

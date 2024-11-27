@@ -21,7 +21,7 @@ public class TicketPool {
 
     private int currentTicketCount;
 
-    //update the constructor so the current ticket count can be updated
+
 
     private ReentrantLock lock = new ReentrantLock(true);
 
@@ -122,6 +122,7 @@ public class TicketPool {
             while (!person.proceed()) {
                 person.waitingMessage();
                 person.waitNow();
+                //print the leaving message
             }
             person.action();
             person.continueNow();
