@@ -6,8 +6,15 @@ import java.util.Arrays;
 
 import java.util.List;
 import java.util.Random;
+import com.google.gson.Gson;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Test {
+
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
     public static void main(String[] args) {
 
         int[] integer = {1, 3, 4};
@@ -15,7 +22,9 @@ public class Test {
 
         int[] moreInt = integer;
 
-
+        Gson gson = new Gson();
+        String json = gson.toJson("Hello, Gson!");
+        System.out.println(json); // Output: "Hello, Gson!"
 //        System.out.println(Arrays.toString(splitInteger(1000)));
 //
 //        Random random = new Random();
@@ -27,6 +36,12 @@ public class Test {
 //        System.out.println(peopleList);
 
 
+        // Log messages at different levels
+        logger.info("Application started.");
+        logger.debug("This is a debug message.");
+        logger.warn("This is a warning.");
+        logger.error("An error occurred.");
+        logger.fatal("Fatal error!");
 
     }
 

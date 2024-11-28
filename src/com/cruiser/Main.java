@@ -17,7 +17,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-            if (true) { // there is config file found
+            if (Configuration.isExisting()) {
                 System.out.println("""
                         Config file detected !
                         Do you want to load the saved Configuration settings?
@@ -31,10 +31,10 @@ public class Main {
                 while (true) {
                     if (choice.equalsIgnoreCase("N")) {
                         takeUserInput();
+
                         break loadConfigLoop;
                     } else if (choice.equalsIgnoreCase("Y")) {
-                        //Do the logic to load the config file and save it to the
-                        //currentConfig object
+                        currentConfiguration = Configuration.retrievConfiguration();
                         break loadConfigLoop;
                     } else {
                         System.out.println("Invalid Input!!!");
@@ -42,6 +42,7 @@ public class Main {
                 }
             } else {
                 takeUserInput();
+
             }
 
         event = new Event(currentConfiguration);
@@ -89,6 +90,7 @@ public class Main {
 
         System.out.println(Arrays.toString(userInputs));
         currentConfiguration = new Configuration(userInputs[0], userInputs[1], userInputs[2], userInputs[3]);
+        currentConfiguration.saveConfiguration();
     }
 
 
