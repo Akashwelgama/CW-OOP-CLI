@@ -25,11 +25,11 @@ public class Vendor extends Person{
 
 
 
-        changeWaitingCount(1);
+
 
         try{
             accessVendorWaitingRoom().await();
-            changeWaitingCount(-1);  //don't worry too much because we are using a ree...lock fair....
+             //don't worry too much because we are using a ree...lock fair....
 
 
 
@@ -55,7 +55,12 @@ public class Vendor extends Person{
 
     @Override
     public void waitingMessage() {
-        System.out.println("Vendor" + getName() + "Entered the waiting room");
+        System.out.println(getName() + "Entered the waiting room");
+    }
+
+    @Override
+    public void leavingMessage() {
+        System.out.println(getName() + "Leaved the waiting room");
     }
 
     @Override
@@ -64,6 +69,8 @@ public class Vendor extends Person{
         // if (getEvent().getTable().getVendorWaitingCount() + 1 < 100)
         getEvent().getTable().setVendorWaitingRoomFull(getEvent().getTable().getVendorWaitingCount() + 1 >= 100);
     }
+
+
 
     public List<Vendor> VendorList(){
 

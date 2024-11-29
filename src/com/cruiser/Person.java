@@ -8,12 +8,8 @@ import java.util.concurrent.locks.Condition;
 
 public abstract class Person implements Runnable{
 
-//    private static ReentrantLock lock = TicketPool.getLock();
-
-    //so it's better to create a ticketPool object right here so the person
-    //so a person object will have its own
-
-//    private static TicketPool ticketTable = new TicketPool(456);
+    private static int customerID = 1;
+    private static int vendorID = 1;
 
     private Event event;
 
@@ -47,6 +43,10 @@ public abstract class Person implements Runnable{
     public abstract void waitingMessage(); //Message printing when the thread is going to sleep
 
     public abstract void changeWaitingCount(int count);
+
+    public abstract void leavingMessage();
+
+
     public Condition accessCustomerWaitingRoom(){
         return customerWaitingRoom;
     }
@@ -82,6 +82,7 @@ public abstract class Person implements Runnable{
     }
 
 
+//    public static <T extends Person> int provideID(Class<T>)
 
 
 

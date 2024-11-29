@@ -6,8 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TicketPool {
 
-    //Remember to add the initial about of tickets of to the ticket array
-    //within the event class when the program initialises.
+
     private ArrayList<Integer> ticketPool = new ArrayList<>();
     private int maxTickets;
 
@@ -111,18 +110,23 @@ public class TicketPool {
 //    public void buyTickets(Customer customer){
 //
 //    }
+    public synchronized void prepareForLock(Person person){  //To make it thread safe
+        person.changeWaitingCount(1);
+    }
 
 
 
     public void useTable(Person person) {
-        person.changeWaitingCount(1);
+        prepareForLock(person);
         lock.lock();
         person.changeWaitingCount(-1);
         try {
             while (!person.proceed()) {
                 person.waitingMessage();
+                person.changeWaitingCount(1);
                 person.waitNow();
-                //print the leaving message
+                person.changeWaitingCount(-1);
+                person.leavingMessage();
             }
             person.action();
             person.continueNow();

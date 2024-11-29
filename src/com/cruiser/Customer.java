@@ -23,11 +23,11 @@ public class Customer extends Person {
     public void waitNow(){
 
 
-        changeWaitingCount(1);
+
 
         try {
             accessCustomerWaitingRoom().await();
-            changeWaitingCount(-1); //don't worry too much because we are using a ree...lock fair....
+             //don't worry too much because we are using a ree...lock fair....
 
 
 
@@ -55,8 +55,13 @@ public class Customer extends Person {
 
     @Override
     public void waitingMessage() {
-        System.out.println("Customer" + getName() + "Entered the waiting room");
+        System.out.println(getName() + "Entered the waiting room");
 
+    }
+
+    @Override
+    public void leavingMessage() {
+        System.out.println(getName() + "Leaved the waiting room");
     }
 
     @Override

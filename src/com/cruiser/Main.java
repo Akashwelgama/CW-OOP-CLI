@@ -17,7 +17,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-            if (Configuration.isExisting()) {
+            if (!(Configuration.isExisting())) {
                 System.out.println("""
                         Config file detected !
                         Do you want to load the saved Configuration settings?
