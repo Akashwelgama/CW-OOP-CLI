@@ -1,6 +1,8 @@
 package com.cruiser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileReader;
@@ -90,6 +92,12 @@ public class Configuration {
         }
 
         return false;
+    }
+
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
+    public static void logInfo(String string){
+        logger.info(string);
     }
 
 

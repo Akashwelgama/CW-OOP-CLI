@@ -7,7 +7,8 @@ public class Vendor extends Person{
 
     @Override
     public void action() {
-        System.out.println(getName() + "is releasing tickets !");
+        System.out.println(getName() + " is releasing " + getNumberOfTickets() + " tickets !");
+        Configuration.logInfo(getName() + " is releasing " + getNumberOfTickets() + " tickets !");
         try{
             Thread.sleep(100);
         } catch (InterruptedException e) {

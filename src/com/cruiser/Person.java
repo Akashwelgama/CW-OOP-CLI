@@ -70,7 +70,7 @@ public abstract class Person implements Runnable{
             try {
 
                 T person = cls.getDeclaredConstructor(String.class, int.class, Event.class)
-                        .newInstance(cls.getSimpleName() + " " + i, personDynamics[i], theEvent);
+                        .newInstance(cls.getSimpleName() + " " + provideID(cls), personDynamics[i], theEvent);
 
                 people.add(person);
             } catch (Exception e) {
@@ -82,7 +82,20 @@ public abstract class Person implements Runnable{
     }
 
 
-//    public static <T extends Person> int provideID(Class<T>)
+    public static <T extends Person> int provideID(Class<T> cls){
+
+        int index = 0;
+        if(cls.getSimpleName().equals("Vendor")){
+            index = vendorID++;
+        } else if (cls.getSimpleName().equals("Customer")) {
+            index = customerID++;
+        }else {
+            index = -1;
+        }
+
+
+        return index;
+    }
 
 
 

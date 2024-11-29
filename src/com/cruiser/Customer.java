@@ -8,7 +8,8 @@ public class Customer extends Person {
 
     @Override
     public void action(){
-        System.out.println(getName() + "is buying tickets !");
+        System.out.println(getName() + " is buying " + getNumberOfTickets() +" tickets !");
+        Configuration.logInfo(getName() + " is buying " + getNumberOfTickets() +" tickets !");
         try{
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -26,6 +27,7 @@ public class Customer extends Person {
 
 
         try {
+
             accessCustomerWaitingRoom().await();
              //don't worry too much because we are using a ree...lock fair....
 
@@ -57,11 +59,13 @@ public class Customer extends Person {
     public void waitingMessage() {
         System.out.println(getName() + "Entered the waiting room");
 
+
     }
 
     @Override
     public void leavingMessage() {
         System.out.println(getName() + "Leaved the waiting room");
+
     }
 
     @Override
