@@ -14,9 +14,6 @@ public class TicketPool {
         return currentTicketCount;
     }
 
-    public void setCurrentTicketCount(int currentTicketCount) {
-        this.currentTicketCount = currentTicketCount;
-    }
 
     private int currentTicketCount;
 
@@ -33,13 +30,8 @@ public class TicketPool {
     private int customerWaitingCount = 0;
     private int vendorWaitingCount = 0;
 
-    public ArrayList<Integer> getTicketPool() {
-        return ticketPool;
-    }
 
-    public void setTicketPool(ArrayList<Integer> ticketPool) {
-        this.ticketPool = ticketPool;
-    }
+
 
     public int getCustomerWaitingCount() {
         return customerWaitingCount;

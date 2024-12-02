@@ -9,5 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="gson-2.8.2" level="project" />
     <orderEntry type="library" name="log4j-api-2.24.2" level="project" />
+    <orderEntry type="library" name="jna-5.13.0" level="project" />
+    <orderEntry type="library" name="jna-platform-5.13.0" level="project" />
   </component>
 </module>

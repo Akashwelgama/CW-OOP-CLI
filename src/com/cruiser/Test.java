@@ -23,8 +23,8 @@ public class Test {
         int[] moreInt = integer;
 
         Gson gson = new Gson();
-        String json = gson.toJson("Hello, Gson!");
-        System.out.println(json); // Output: "Hello, Gson!"
+//        String json = gson.toJson("Hello, Gson!");
+//        System.out.println(json); // Output: "Hello, Gson!"
 //        System.out.println(Arrays.toString(splitInteger(1000)));
 //
 //        Random random = new Random();
@@ -37,12 +37,26 @@ public class Test {
 
 
         // Log messages at different levels
-        logger.info("Application started.");
-        logger.debug("This is a debug message.");
-        logger.warn("This is a warning.");
-        logger.error("An error occurred.");
-        logger.fatal("Fatal error!");
+//        logger.info("Application started.");
+//        logger.debug("This is a debug message.");
+//        logger.warn("This is a warning.");
+//        logger.error("An error occurred.");
+//        logger.fatal("Fatal error!");
 
+
+
+        // Start the custom console
+        ExternalConsole.startConsole();
+
+        // Log some messages to the custom console
+        ExternalConsole.logToConsole("Hello, this is the custom console!");
+        ExternalConsole.logToConsole("You can log messages here just like a regular console.");
+
+
+
+
+//        CMD.initializeCmd();
+//        CMD.logCMD("BLa bla blaa bla blaaa");
     }
 
     public static int[] splitInteger(int total) {

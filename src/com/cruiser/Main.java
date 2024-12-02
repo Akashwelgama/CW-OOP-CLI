@@ -47,6 +47,7 @@ public class Main {
 
         event = new Event(currentConfiguration);
         event.getTable().sellTickets(currentConfiguration.getInitialTicketCount());
+        ExternalConsole.startConsole();
         Thread vendors = new Thread(new VendorEngine(event));
         Thread customers = new Thread(new CustomerEngine(event));
 

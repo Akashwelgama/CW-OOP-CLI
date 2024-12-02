@@ -1,14 +1,15 @@
 package com.cruiser;
 
-import java.util.List;
+
 
 public class Vendor extends Person{
 
 
     @Override
     public void action() {
-        System.out.println(getName() + " is releasing " + getNumberOfTickets() + " tickets !");
+//        System.out.println(getName() + " is releasing " + getNumberOfTickets() + " tickets !");
         Configuration.logInfo(getName() + " is releasing " + getNumberOfTickets() + " tickets !");
+        ExternalConsole.logToConsole(getName() + " is releasing " + getNumberOfTickets() + " tickets !");
         try{
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -56,12 +57,16 @@ public class Vendor extends Person{
 
     @Override
     public void waitingMessage() {
-        System.out.println(getName() + "Entered the waiting room");
+
+//        System.out.println(getName() + "Entered the waiting room");
+        ExternalConsole.logToConsole(getName() + " Entered the waiting room");
     }
 
     @Override
     public void leavingMessage() {
-        System.out.println(getName() + "Leaved the waiting room");
+
+//        System.out.println(getName() + "Leaved the waiting room");
+        ExternalConsole.logToConsole(getName() + " Leaved the waiting room");
     }
 
     @Override
@@ -73,10 +78,6 @@ public class Vendor extends Person{
 
 
 
-    public List<Vendor> VendorList(){
-
-        return Person.createPeople(Vendor.class, getEvent().getEventDynamics().getTicketReleaseRate(), getEvent());
-    }
 
 
 

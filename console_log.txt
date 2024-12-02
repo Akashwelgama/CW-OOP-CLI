@@ -1,0 +1,3 @@
+2024-12-01T12:25:26.3605734 - Application started
+2024-12-01T12:25:38.3044444 - Application started
+2024-12-01T12:33:13.3203675 - Application started
