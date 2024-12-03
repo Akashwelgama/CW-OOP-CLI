@@ -50,7 +50,8 @@ public class Main {
         ExternalConsole.startConsole();
         Thread vendors = new Thread(new VendorEngine(event));
         Thread customers = new Thread(new CustomerEngine(event));
-
+        Thread eventTerminator = new Thread(event);
+        eventTerminator.start();
         vendors.start();
         customers.start();
 

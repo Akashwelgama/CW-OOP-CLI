@@ -113,12 +113,21 @@ public class TicketPool {
         lock.lock();
         person.changeWaitingCount(-1);
         try {
+            if (person.getEvent().isTerminate()){
+                person.continueNow();
+
+                return;
+            }
             while (!person.proceed()) {
                 person.waitingMessage();
                 person.changeWaitingCount(1);
                 person.waitNow();
                 person.changeWaitingCount(-1);
                 person.leavingMessage();
+                if (person.getEvent().isTerminate()){
+
+                    return; //method to desplay te message
+                }
             }
             person.action();
             person.continueNow();

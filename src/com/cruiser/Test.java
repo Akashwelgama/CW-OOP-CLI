@@ -45,12 +45,13 @@ public class Test {
 
 
 
+//        ExternalConsole.closeConsole();
         // Start the custom console
         ExternalConsole.startConsole();
 
         // Log some messages to the custom console
         ExternalConsole.logToConsole("Hello, this is the custom console!");
-        ExternalConsole.logToConsole("You can log messages here just like a regular console.");
+//        ExternalConsole.logToConsole("You can log messages here just like a regular console.");
 
 
 

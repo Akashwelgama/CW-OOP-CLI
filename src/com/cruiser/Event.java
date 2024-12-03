@@ -1,11 +1,15 @@
 package com.cruiser;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Event implements Runnable {
 
     private Configuration eventDynamics;
     private TicketPool table;
+
+    private static ArrayList<Thread> sleepers = new ArrayList<>();
 
     private volatile boolean terminate = false;
 
@@ -22,19 +26,48 @@ public class Event implements Runnable {
         return terminate;
     }
 
-    public void setTerminate(boolean terminate) {
-        this.terminate = terminate;
+
+    public static void addSleeper(Thread thread){
+        sleepers.add(thread);
     }
+
+    public static void removeSleeper(Thread thread){
+        sleepers.remove(thread);
+    }
+
+    public static void interruptAll(){
+        while(!sleepers.isEmpty()){
+            Thread thread = sleepers.get(0);
+            thread.interrupt();
+            sleepers.remove(0);
+        }
+    }
+
 
     public Event(Configuration eventDynamics){
         this.eventDynamics = eventDynamics;
         table = new TicketPool(eventDynamics.getMaxTicketCapacity(), eventDynamics.getInitialTicketCount());
     }
 
+    public void terminate(){
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter Q to exit the program: ");
+            String input = scanner.nextLine().toUpperCase();
+            System.out.println(input + "***********");
+            if (input.equals("Q")) {
+                terminate = true;
+                interruptAll();
+                break;
+
+            }
+        }
+    }
+
 
     @Override
     public void run() {
-
+    terminate();
 
     }
 

@@ -29,7 +29,7 @@ public class ExternalConsole {
             Thread.sleep(2000);
 
             // Connect to the console application's server socket
-            socket = new Socket("localhost", 5000);
+            socket = new Socket("localhost", 5002);
             writer = new BufferedWriter(
                     new OutputStreamWriter(socket.getOutputStream()));
             consoleRunning = true;
